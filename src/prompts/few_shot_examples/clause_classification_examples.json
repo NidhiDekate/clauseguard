@@ -1,0 +1,47 @@
+[
+  {
+    "clause": "Guests of the Tenant are allowed for periods not lasting for more than 48 hours unless otherwise approved by the Landlord in writing.",
+    "label": "concerning",
+    "reason": "48-hour guest limit is restrictive and easy to violate unknowingly without realizing it's a lease term."
+  },
+  {
+    "clause": "The Landlord is prohibited from making any type of retaliatory acts against the Tenant including but not limited to restricting access to the Premises, decreasing or cancelling services or utilities, failure to repair appliances or fixtures.",
+    "label": "favorable",
+    "reason": "Explicit tenant protection against landlord retaliation, stronger than many leases include."
+  },
+  {
+    "clause": "The Landlord shall have the right to enter the Premises during normal working hours by providing at least twenty-four (24) hours notice.",
+    "label": "neutral",
+    "reason": "Standard notice period, matches typical market practice."
+  },
+  {
+    "clause": "You are forced into binding arbitration in case of disputes",
+    "label": "concerning",
+    "reason": "Removes your ability to take a dispute to court."
+  },
+  {
+    "clause": "You have the right to leave this service at any time",
+    "label": "favorable",
+    "reason": "No lock-in on account termination."
+  },
+  {
+    "clause": "The terms may be changed at any time, but you will receive notification of the changes",
+    "label": "neutral",
+    "reason": "Standard change-of-terms clause, but with real notice, which is the fairer version of this pattern."
+  },
+  {
+    "clause": "The service provider makes no warranty regarding uninterrupted, timely, secure or error-free service",
+    "label": "neutral",
+    "reason": "Standard defensive disclaimer used across nearly all software and service agreements, not an unusual burden specific to this document."
+  },
+  {
+    "clause": "This service has a no refund policy with some exceptions",
+    "label": "neutral",
+    "reason": "Common industry-standard policy; sounds restrictive but is not unusual for this type of service."
+  },
+  {
+    "clause": "Users who have been permanently banned from this service are not allowed to re-register under a new account",
+    "label": "neutral",
+    "reason": "Standard platform enforcement term; negative phrasing but a normal, expected policy."
+  }
+]

@@ -1,0 +1,16 @@
+langchain
+langchain-core
+langchain-groq
+langchain-huggingface
+langchain-chroma
+langchain-pinecone
+langgraph
+sentence-transformers
+chromadb
+pinecone
+fastmcp
+fastapi
+uvicorn
+streamlit
+requests
+python-dotenv

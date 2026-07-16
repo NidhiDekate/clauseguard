@@ -1,0 +1,26 @@
+[
+  {
+    "model": "openai/gpt-oss-20b",
+    "accuracy": 0.7924528301886793,
+    "correct": 42,
+    "total": 53,
+    "errors": 0,
+    "avg_latency_seconds": 2.1513558175283833
+  },
+  {
+    "model": "openai/gpt-oss-120b",
+    "accuracy": 0.8846153846153846,
+    "correct": 46,
+    "total": 52,
+    "errors": 1,
+    "avg_latency_seconds": 1.7926261794428473
+  },
+  {
+    "model": "qwen/qwen3.6-27b",
+    "accuracy": 0.8936170212765957,
+    "correct": 42,
+    "total": 47,
+    "errors": 6,
+    "avg_latency_seconds": 11.839043036360849
+  }
+]

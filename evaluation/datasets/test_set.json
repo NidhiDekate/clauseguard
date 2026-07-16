@@ -1,0 +1,439 @@
+{
+  "_notes": "Consolidated ClauseGuard test set. 'source': 'synthetic_example' documents are original examples for pipeline smoke-testing only, not part of the real eval set. All other documents are real, with any PII redacted before inclusion. See docs/ROADMAP.md Phase 1 for how this set was built.",
+  "documents": [
+    {
+      "doc_id": "lease_001",
+      "doc_type": "lease",
+      "source": "synthetic_example",
+      "clauses": [
+        {
+          "clause_ref": "4.2",
+          "text": "Landlord may adjust rent with seven (7) days written notice to Tenant.",
+          "label": "concerning",
+          "reason": "7-day notice is well below the typical 30-day standard for rent increases"
+        },
+        {
+          "clause_ref": "6.1",
+          "text": "A refundable pet deposit of $300 is required for tenants with approved pets.",
+          "label": "neutral",
+          "reason": "Standard, in line with typical local terms"
+        },
+        {
+          "clause_ref": "9.4",
+          "text": "Early termination requires payment of a fee calculated per the formula in Exhibit C, section 2, subject to adjustment.",
+          "label": "concerning",
+          "reason": "Fee formula is vague and cross-references another section, making the actual cost unclear"
+        },
+        {
+          "clause_ref": "11.0",
+          "text": "Tenant may request repairs at any time via written notice, and Landlord will respond within 48 hours for non-emergency issues.",
+          "label": "favorable",
+          "reason": "Clear, tenant-friendly response time commitment, stronger than typical"
+        }
+      ]
+    },
+    {
+      "doc_id": "lease_002",
+      "doc_type": "lease",
+      "source": "synthetic_example",
+      "clauses": [
+        {
+          "clause_ref": "3.1",
+          "text": "Security deposit will be returned within 21 days of move-out, less any deductions for damages.",
+          "label": "neutral",
+          "reason": "Standard timeline, matches most state requirements"
+        },
+        {
+          "clause_ref": "8.3",
+          "text": "Tenant waives the right to a jury trial in any dispute arising from this agreement.",
+          "label": "concerning",
+          "reason": "Jury trial waiver significantly limits tenant's legal options and is easy to miss"
+        },
+        {
+          "clause_ref": "10.2",
+          "text": "Landlord shall maintain the property in compliance with all applicable health and safety codes.",
+          "label": "favorable",
+          "reason": "Explicit maintenance obligation protects the tenant"
+        }
+      ]
+    },
+    {
+      "doc_id": "insurance_001",
+      "doc_type": "insurance_policy",
+      "source": "synthetic_example",
+      "clauses": [
+        {
+          "clause_ref": "II.A",
+          "text": "Claims must be filed within 30 days of the incident or coverage may be denied.",
+          "label": "concerning",
+          "reason": "30-day window is short and denial-on-technicality risk is high if missed"
+        },
+        {
+          "clause_ref": "III.B",
+          "text": "Pre-existing conditions disclosed at enrollment are covered after a 90-day waiting period.",
+          "label": "neutral",
+          "reason": "Standard waiting period structure, clearly disclosed"
+        },
+        {
+          "clause_ref": "V.C",
+          "text": "The insurer reserves the right to adjust premiums annually based on claims history, with 60 days written notice.",
+          "label": "neutral",
+          "reason": "Reasonable notice period, standard practice"
+        }
+      ]
+    },
+    {
+      "doc_id": "lease_pa_001",
+      "doc_type": "lease",
+      "source": "eforms.com PA Standard Lease Agreement (blank template)",
+      "clauses": [
+        {
+          "clause_ref": "XXXI",
+          "text": "If the Premises includes a washer, dryer, freezer, dehumidifier unit and/or air conditioning unit, the Landlord makes no warranty as to the repair or replacement of units if one or all shall fail to operate.",
+          "label": "concerning",
+          "reason": "Landlord has no obligation to fix or replace major appliances if they break \u2014 easy to miss since it reads like a routine maintenance clause"
+        },
+        {
+          "clause_ref": "XXXIII",
+          "text": "Guests of the Tenant are allowed for periods not lasting for more than 48 hours unless otherwise approved by the Landlord in writing.",
+          "label": "concerning",
+          "reason": "48-hour guest limit is restrictive and easy to violate unknowingly without realizing it's a lease term"
+        },
+        {
+          "clause_ref": "XXXV",
+          "text": "Tenant, or any Occupant(s) is arrested, convicted, or given deferred adjudication for a criminal offense involving actual or potential physical harm to a person...regardless of whether arrest or conviction occurs.",
+          "label": "concerning",
+          "reason": "Default can be triggered by arrest alone, without any conviction \u2014 an unusually low bar that most tenants wouldn't expect"
+        },
+        {
+          "clause_ref": "XLIV",
+          "text": "The Landlord shall not be liable for any damage or injury to the Tenant...unless caused solely by the Landlord's negligence.",
+          "label": "concerning",
+          "reason": "Shifts nearly all liability risk onto the tenant; 'solely' is a high bar that's hard for a tenant to prove"
+        },
+        {
+          "clause_ref": "XL",
+          "text": "The Landlord is prohibited from making any type of retaliatory acts against the Tenant including but not limited to restricting access to the Premises, decreasing or cancelling services or utilities, failure to repair appliances or fixtures.",
+          "label": "favorable",
+          "reason": "Explicit tenant protection against landlord retaliation, stronger than many leases include"
+        },
+        {
+          "clause_ref": "XLII",
+          "text": "If the Tenant possesses any mental or physical impairment, the Landlord shall provide reasonable modifications to the Premises unless the modifications would be too difficult or expensive for the Landlord to provide.",
+          "label": "favorable",
+          "reason": "Clear accommodation commitment beyond baseline legal requirement framing"
+        },
+        {
+          "clause_ref": "XXX",
+          "text": "The Landlord shall have the right to enter the Premises during normal working hours by providing at least twenty-four (24) hours notice.",
+          "label": "neutral",
+          "reason": "Standard notice period, matches typical market practice"
+        },
+        {
+          "clause_ref": "XXVIII",
+          "text": "If the Tenant vacates or abandons the Premises for a time-period that is the minimum set by State law or seven (7) days, whichever is less, the Landlord shall have the right to terminate this Agreement immediately.",
+          "label": "concerning",
+          "reason": "7 days is a short window before the landlord can treat the unit as abandoned and remove belongings"
+        }
+      ]
+    },
+    {
+      "doc_id": "lease_ftc_001",
+      "doc_type": "lease",
+      "source": "Consumer.gov / FTC Sample Rental Agreement (US government work, public domain)",
+      "clauses": [
+        {
+          "clause_ref": "5",
+          "text": "In the event rent is not received prior to the 4th of the month, Tenant agrees to pay a $25 late fee, plus an additional $5 per day for every day thereafter until the rent is paid. Neither ill health, loss of job, financial emergency, or other excuses will be accepted for late payment.",
+          "label": "concerning",
+          "reason": "Escalating daily late fee with no exceptions for genuine hardship is unusually harsh and uncapped"
+        },
+        {
+          "clause_ref": "7",
+          "text": "No interest will be paid on this money and in no case will it be applied to back or future rent. It will be held intact by Landlord until at least thirty (30) working days after Tenants have vacated.",
+          "label": "neutral",
+          "reason": "No-interest deposits are standard in most states; 30 working days plus review is within normal range"
+        },
+        {
+          "clause_ref": "8",
+          "text": "They agree to return the property in the same condition or pay a $200.00 minimum cleaning fee if the Landlord has to have the property professionally cleaned.",
+          "label": "neutral",
+          "reason": "Flat, disclosed cleaning fee is standard and not hidden"
+        },
+        {
+          "clause_ref": "10",
+          "text": "Tenants agree to keep a maximum of 1 vehicle on premises or in the garage.",
+          "label": "concerning",
+          "reason": "Single-vehicle limit is restrictive and easy to overlook when signing, especially for multi-adult households"
+        },
+        {
+          "clause_ref": "12",
+          "text": "If the tenant does not notify landlord in a prompt matter the tenant may be held financially responsible.",
+          "label": "concerning",
+          "reason": "Vague 'prompt' standard with real financial consequence attached \u2014 no defined timeframe for what counts as compliant"
+        },
+        {
+          "clause_ref": "9",
+          "text": "If anyone removes any property belonging to Landlord without the express written consent of the Landlord, this will constitute abandonment and surrender of the premises by Tenant.",
+          "label": "concerning",
+          "reason": "Broadly worded \u2014 could be triggered unintentionally and treated as full lease abandonment"
+        },
+        {
+          "clause_ref": "1",
+          "text": "Upon expiration, this Agreement shall become a month-to-month agreement AUTOMATICALLY, UNLESS either Tenants or Owners notify the other party in writing at least 30 days prior to expiration.",
+          "label": "neutral",
+          "reason": "Standard auto-renewal structure with reasonable, symmetric notice period for both parties"
+        }
+      ]
+    },
+    {
+      "doc_id": "lease_real_002",
+      "doc_type": "lease",
+      "source": "real signed lease, PII redacted",
+      "clauses": [
+        {
+          "clause_ref": "1.7.D",
+          "text": "This lease automatically renews under the same terms...with a $100.00 per month rental increase unless another lease, an addendum and/or a lease extension is executed, or written notice of non-renewal is given 120 days before expiration. The right to renew this lease is entirely at the discretion of the Landlord.",
+          "label": "concerning",
+          "reason": "Automatic renewal with a guaranteed rent increase, a 120-day notice window most tenants wouldn't track, and renewal being entirely the landlord's discretion despite the tenant carrying the notice burden"
+        },
+        {
+          "clause_ref": "2.1",
+          "text": "If Tenant breaks this lease, Tenant agrees to give up his right of a \"Notice to Quit\". This means Tenant allows Landlord to go to court without giving the required notice.",
+          "label": "concerning",
+          "reason": "Waives a standard legal protection tenants normally have before being taken to court"
+        },
+        {
+          "clause_ref": "2.5.B",
+          "text": "If Tenant breaks this lease in any way, the deposit is not refundable.",
+          "label": "concerning",
+          "reason": "Extremely broad forfeiture condition \u2014 any lease violation, however minor, voids the entire deposit"
+        },
+        {
+          "clause_ref": "2.8",
+          "text": "If we continue to attempt to contact you for 3 full days and we do not receive a response from you, you will be charged a $100.00 fee. NO EXCEPTIONS!",
+          "label": "concerning",
+          "reason": "A real fee tied to not answering the phone within 3 days, with no exceptions carve-out for any circumstance"
+        },
+        {
+          "clause_ref": "2.12.B",
+          "text": "Landlord has the right to enter the leased property at any time without advance notice. Landlord...has the right to inspect, show, make repairs, and do maintenance even if the Tenant is not at home.",
+          "label": "concerning",
+          "reason": "No-notice entry for routine (non-emergency) purposes is well outside the typical 24-hour notice standard"
+        },
+        {
+          "clause_ref": "1.12.C",
+          "text": "Tenant is required to purchase personal liability insurance ($100,000). Failure to maintain personal liability insurance is an incurable breach of this Lease Contract and may result in the termination of tenancy and eviction.",
+          "label": "concerning",
+          "reason": "Mandatory insurance framed as an 'incurable breach' \u2014 lapsing coverage even briefly could trigger eviction with no cure period"
+        },
+        {
+          "clause_ref": "2.11.B",
+          "text": "If tenant or any guest or occupant violates animal restrictions (with or without tenants knowledge), tenant will be subject to charges ($500 per animal, recurring monthly).",
+          "label": "concerning",
+          "reason": "Recurring monthly $500 charge, and explicitly applies even if the tenant had no knowledge of the violation"
+        },
+        {
+          "clause_ref": "4.1",
+          "text": "No smoking or vaping inside the property. If you are found in violation of this rule, you will be charged a $500.00 fine...Landlord will use own discretion based off of observed condition of property to determine if smoking or vaping has occurred.",
+          "label": "concerning",
+          "reason": "The fine is triggered by the landlord's own subjective discretion, with no independent verification standard"
+        },
+        {
+          "clause_ref": "2.16",
+          "text": "Tenant or Landlord may agree to submit any dispute concerning this lease to final and binding mediation/arbitration. Both the Tenant and the landlord choose the mediator.",
+          "label": "neutral",
+          "reason": "Requires mutual agreement and joint mediator selection, more balanced than a unilateral arbitration clause"
+        },
+        {
+          "clause_ref": "1.10",
+          "text": "We will hold the security deposit for the term of the tenancy and, upon termination of the tenancy, reserve the right to use the security deposit...to cover any charges related to your performance of this Lease Contract.",
+          "label": "neutral",
+          "reason": "Fairly standard security deposit usage language"
+        },
+        {
+          "clause_ref": "2.13",
+          "text": "Tenant agrees to give up his right of a \"Notice to Quit\"...Landlord may report any past rent, damages, utilities or other costs owed by Tenant to a credit reporting agency.",
+          "label": "concerning",
+          "reason": "Credit reporting exposure disclosed, but combined with other clauses here it adds another real financial consequence tenants may not register while signing"
+        }
+      ]
+    },
+    {
+      "doc_id": "tos_spotify_001",
+      "doc_type": "terms_of_service",
+      "source": "tosdr.org (Spotify)",
+      "clauses": [
+        {
+          "clause_ref": "content_deletion",
+          "text": "Specific content can be deleted without reason and may be removed without prior notice",
+          "label": "concerning",
+          "reason": "ToS;DR blocker-level: no cause required and no warning given before your content is removed"
+        },
+        {
+          "clause_ref": "moral_rights_waiver",
+          "text": "You waive your moral rights",
+          "label": "concerning",
+          "reason": "ToS;DR blocker-level: giving up rights over how your own content/name is used or attributed"
+        },
+        {
+          "clause_ref": "ai_training_use",
+          "text": "Your personal data is used for automated decision-making, profiling or AI training",
+          "label": "concerning",
+          "reason": "ToS;DR blocker-level: your data can train AI systems or drive automated decisions about you"
+        },
+        {
+          "clause_ref": "binding_arbitration",
+          "text": "You are forced into binding arbitration in case of disputes",
+          "label": "concerning",
+          "reason": "Removes your ability to take a dispute to court"
+        },
+        {
+          "clause_ref": "class_action_waiver",
+          "text": "You waive your right to a class action.",
+          "label": "concerning",
+          "reason": "You can't join a group lawsuit against the service, only pursue disputes individually"
+        },
+        {
+          "clause_ref": "silent_terms_acceptance",
+          "text": "Instead of asking directly, this Service will assume your consent to changes of terms merely from your usage.",
+          "label": "concerning",
+          "reason": "Continuing to use the app counts as agreeing to changed terms you may never have seen"
+        },
+        {
+          "clause_ref": "liability_cap",
+          "text": "Any liability on behalf of the service is only limited to the fees you paid as a user (or $30 USD)",
+          "label": "concerning",
+          "reason": "Caps what you could ever recover from the service at a very low fixed amount"
+        },
+        {
+          "clause_ref": "content_licensing_to_third_parties",
+          "text": "Your content can be licensed to third parties",
+          "label": "concerning",
+          "reason": "What you upload isn't just used by the service itself \u2014 it can be passed to other companies"
+        },
+        {
+          "clause_ref": "data_access_rights",
+          "text": "You can request access, correction and/or deletion of your data",
+          "label": "favorable",
+          "reason": "Real, actionable data rights for the user"
+        },
+        {
+          "clause_ref": "right_to_leave",
+          "text": "You have the right to leave this service at any time",
+          "label": "favorable",
+          "reason": "No lock-in on account termination"
+        },
+        {
+          "clause_ref": "content_ownership",
+          "text": "You maintain ownership of your content",
+          "label": "favorable",
+          "reason": "You retain ownership even though it can also be licensed out (see content_licensing_to_third_parties) \u2014 worth reading both together"
+        },
+        {
+          "clause_ref": "notified_term_changes",
+          "text": "The terms may be changed at any time, but you will receive notification of the changes",
+          "label": "neutral",
+          "reason": "Standard change-of-terms clause, but with real notice, which is the fairer version of this pattern"
+        },
+        {
+          "clause_ref": "refund_policy",
+          "text": "This service has a no refund policy with some exceptions",
+          "label": "neutral",
+          "reason": "Common industry standard, not unusually restrictive as written"
+        }
+      ]
+    },
+    {
+      "doc_id": "tos_facebook_001",
+      "doc_type": "terms_of_service",
+      "source": "tosdr.org (Facebook, Grade E)",
+      "clauses": [
+        {
+          "clause_ref": "shadow_profile_data",
+          "text": "They store data on you even if you did not interact with the service",
+          "label": "concerning",
+          "reason": "ToS;DR blocker-level: data collection isn't limited to people who actually use the service"
+        },
+        {
+          "clause_ref": "identity_in_ads",
+          "text": "Your identity is used in ads that are shown to other users",
+          "label": "concerning",
+          "reason": "ToS;DR blocker-level: your name/likeness can appear in advertising shown to other people without a separate opt-in described here"
+        },
+        {
+          "clause_ref": "message_privacy",
+          "text": "Private messages that are not end-to-end encrypted can be read",
+          "label": "concerning",
+          "reason": "ToS;DR blocker-level: messages you'd reasonably assume are private aren't cryptographically protected from the service itself"
+        },
+        {
+          "clause_ref": "ai_training_use",
+          "text": "Your personal data is used for automated decision-making, profiling or AI training",
+          "label": "concerning",
+          "reason": "ToS;DR blocker-level: same pattern as Spotify, your data trains systems or drives automated decisions about you"
+        },
+        {
+          "clause_ref": "deletion_not_real",
+          "text": "Deleted content is not really deleted",
+          "label": "concerning",
+          "reason": "ToS;DR blocker-level: clicking delete doesn't mean the data is actually gone"
+        },
+        {
+          "clause_ref": "location_despite_opt_out",
+          "text": "This service may collect, use, and share location data, even if you turn off location sharing",
+          "label": "concerning",
+          "reason": "Turning off the location toggle doesn't reliably stop location collection"
+        },
+        {
+          "clause_ref": "cross_site_tracking",
+          "text": "This service tracks you on other websites",
+          "label": "concerning",
+          "reason": "Tracking extends beyond the platform itself into your browsing elsewhere"
+        },
+        {
+          "clause_ref": "biometric_collection",
+          "text": "Your biometric data is collected",
+          "label": "concerning",
+          "reason": "Biometric data is an especially sensitive category with real re-identification risk if leaked"
+        },
+        {
+          "clause_ref": "no_forced_arbitration",
+          "text": "You aren't forced into binding arbitration in case of disputes",
+          "label": "favorable",
+          "reason": "Preserves your normal right to go to court, unlike Spotify's arbitration clause"
+        },
+        {
+          "clause_ref": "30_day_change_notice",
+          "text": "When the service wants to make a material change to its terms, you are notified at least 30 days in advance",
+          "label": "favorable",
+          "reason": "Concrete, specific notice period rather than a vague 'you'll be notified' promise"
+        },
+        {
+          "clause_ref": "no_data_sale",
+          "text": "This service does not sell your personal data",
+          "label": "favorable",
+          "reason": "Explicit commitment, notable given how much data collection is flagged elsewhere on this same page"
+        },
+        {
+          "clause_ref": "content_ownership",
+          "text": "You maintain ownership of your content",
+          "label": "favorable",
+          "reason": "Same pattern as Spotify, ownership retained even though usage rights are licensed out"
+        },
+        {
+          "clause_ref": "ban_evasion_prohibited",
+          "text": "Users who have been permanently banned from this service are not allowed to re-register under a new account",
+          "label": "neutral",
+          "reason": "Standard platform enforcement term"
+        },
+        {
+          "clause_ref": "no_damages_liability",
+          "text": "The service assumes no liability for any damages the user incurs",
+          "label": "neutral",
+          "reason": "Boilerplate liability disclaimer, common across most services including higher-graded ones"
+        }
+      ]
+    }
+  ]
+}

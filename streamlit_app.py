@@ -1,0 +1,98 @@
+# streamlit_app.py
+# entry point for streamlit community cloud specifically. calls the
+# langgraph pipeline directly rather than over http to a separate fastapi
+# service, because streamlit cloud only runs one process - it "handles
+# containerization" itself and doesn't support a second service alongside it.
+#
+# the real fastapi + streamlit split (api/main.py + frontend/app.py) is
+# still the actual architecture, still fully documented, still what you'd
+# run in local dev or any real multi-service deployment. this file exists
+# specifically because free-tier single-process hosting is a real, common
+# constraint - not a downgrade of the design, just a different packaging
+# of the same pipeline for this one hosting target.
+#
+# to run locally exactly as streamlit cloud will run it:
+#   streamlit run streamlit_app.py
+
+import sys
+import time
+from pathlib import Path
+
+import streamlit as st
+
+sys.path.append(str(Path(__file__).resolve().parent / "src" / "agents"))
+
+from graph import graph
+from guardrails import validate_document, DocumentValidationError, CallBudgetError
+
+SAMPLE_DOCS = {
+    "PA lease template": "data/sample_docs/pa_lease_sample.txt",
+    "FTC sample lease": "data/sample_docs/ftc_lease_sample.txt",
+}
+
+st.set_page_config(page_title="ClauseGuard", page_icon="📄")
+st.title("ClauseGuard")
+st.caption("Understand a lease in under a minute — every finding backed by the exact clause it came from.")
+st.caption("⚠️ Educational AI engineering project. Not legal advice.")
+
+st.subheader("1. Choose a document")
+choice = st.radio("Source", ["Try a sample", "Upload my own"])
+
+if choice == "Try a sample":
+    sample_name = st.selectbox("Pick a sample", list(SAMPLE_DOCS.keys()))
+    if st.button("Load sample"):
+        st.session_state["document_text"] = Path(SAMPLE_DOCS[sample_name]).read_text(encoding="utf-8")
+else:
+    uploaded = st.file_uploader("Upload a .txt lease document", type=["txt"])
+    if uploaded is not None:
+        st.session_state["document_text"] = uploaded.read().decode("utf-8")
+
+if "document_text" in st.session_state:
+    with st.expander("Preview document"):
+        st.text(st.session_state["document_text"][:1000] + "...")
+
+    if st.button("Analyze", type="primary"):
+        doc_text = st.session_state["document_text"]
+
+        try:
+            validate_document(doc_text)
+        except DocumentValidationError as e:
+            st.error(str(e))
+            st.stop()
+
+        with st.spinner("Analyzing document... real model calls happening, takes about a minute"):
+            start = time.monotonic()
+            try:
+                result = graph.invoke({"document_text": doc_text, "document_type": "lease"})
+            except CallBudgetError as e:
+                st.error(str(e))
+                st.stop()
+            elapsed = time.monotonic() - start
+
+        report = result["decision_report"]
+        st.caption(f"Analyzed in {elapsed:.1f}s")
+
+        concerning = [f for f in report if f.get("label") == "concerning"]
+        neutral = [f for f in report if f.get("label") == "neutral"]
+        favorable = [f for f in report if f.get("label") == "favorable"]
+        not_addressed = [f for f in report if f["status"] == "not_addressed"]
+
+        st.subheader("2. Decision report")
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Concerning", len(concerning))
+        col2.metric("Neutral", len(neutral))
+        col3.metric("Favorable", len(favorable))
+        col4.metric("Not addressed", len(not_addressed))
+
+        for finding in report:
+            if finding["status"] == "not_addressed":
+                st.info(f"**{finding['category']}** — not addressed in this document")
+                continue
+
+            label = finding["label"]
+            icon = {"concerning": "🔴", "neutral": "⚪", "favorable": "🟢"}[label]
+            with st.expander(f"{icon} {finding['category']} — {label.upper()}"):
+                st.write(finding["reason"])
+                if "fee_exposure_10_days_late" in finding:
+                    st.write(f"**Estimated exposure at 10 days late:** ${finding['fee_exposure_10_days_late']}")
+                st.caption(f"Source: {finding['clause']}")

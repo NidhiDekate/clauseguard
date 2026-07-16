@@ -1,0 +1,53 @@
+# retriever.py
+# turns a document into something queryable - this is the real retrieval
+# piece the agent calls, not another test script. uses clause-boundary
+# chunking + chroma since that's what won the comparison,
+# see docs/experiments/03_chunking_and_vector_store.md
+
+import uuid
+
+from langchain_chroma import Chroma
+from langchain_huggingface import HuggingFaceEmbeddings
+
+from chunking import chunk_by_clause
+
+EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+
+
+def build_retriever(document_text, collection_name=None):
+    # one document per session, not a shared index across documents - so
+    # give each build a unique collection name unless the caller wants a
+    # specific one (useful for tests where we want to name it something
+    # readable)
+    if collection_name is None:
+        collection_name = f"clauseguard_{uuid.uuid4().hex[:8]}"
+
+    chunks = chunk_by_clause(document_text)
+    embeddings = HuggingFaceEmbeddings(model_name=EMBEDDING_MODEL)
+
+    return Chroma.from_texts(
+        texts=chunks,
+        embedding=embeddings,
+        collection_name=collection_name,
+    )
+
+
+def retrieve_clauses(vectorstore, query, k=3):
+    results = vectorstore.similarity_search(query, k=k)
+    return [r.page_content for r in results]
+
+
+if __name__ == "__main__":
+    # quick manual check - build a retriever from the sample lease and ask it something
+    with open("data/sample_docs/pa_lease_sample.txt", encoding="utf-8") as f:
+        doc = f.read()
+
+    retriever = build_retriever(doc)
+
+    query = "does this lease have an early termination fee?"
+    results = retrieve_clauses(retriever, query, k=2)
+
+    print(f"Q: {query}\n")
+    for i, r in enumerate(results, 1):
+        print(f"[{i}] {r[:200]}")
+        print()
