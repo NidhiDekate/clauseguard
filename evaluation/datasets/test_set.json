@@ -1,5 +1,5 @@
 {
-  "_notes": "Consolidated ClauseGuard test set. 'source': 'synthetic_example' documents are original examples for pipeline smoke-testing only, not part of the real eval set. All other documents are real, with any PII redacted before inclusion. See docs/ROADMAP.md Phase 1 for how this set was built.",
+"_notes": "Evaluation dataset containing both synthetic and real contract samples. Synthetic examples are reserved for pipeline validation only. PII has been removed from all real documents.",
   "documents": [
     {
       "doc_id": "lease_001",
