@@ -1,4 +1,3 @@
-# chunking.py
 # two ways to split a document into pieces for retrieval - fixed size (dumb,
 # generic) vs clause-boundary aware (splits on the numbered sections a lease
 # actually has). compare_chunking.py tests which one retrieves better.
