@@ -1,7 +1,4 @@
-# compare_models.py
-# same test set, run through a few different groq models, so the "best model"
-# call is based on actual numbers instead of a guess
-#
+# Compare candidate Groq models on the same evaluation set.
 # usage: python src/models/compare_models.py
 
 import json
