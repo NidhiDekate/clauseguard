@@ -1,6 +1,5 @@
-# classify_clause.py
-# classifies a single clause as concerning / neutral / favorable using groq
-# see docs/ENGINEERING_JOURNAL.md entry 5 for why v2 is the prompt in use
+
+# Runs the clause classifier using the prompt in clause_classifier_v2.txt.
 
 import json
 import re
@@ -74,9 +73,8 @@ def classify_clause(clause_text, model_name=MODEL_NAME):
 
     content = response.content.strip()
 
-    # some models (gpt-oss on groq, for one) wrap their answer in a
-    # <think>...</think> reasoning block before the actual json. strip it
-    # out first or json.loads chokes on the whole thing.
+    # gpt-oss on Groq sometimes returns a <think> block before the JSON.
+    # Strip it before parsing.
     content = re.sub(r"<think>.*?</think>", "", content, flags=re.DOTALL).strip()
 
     try:
