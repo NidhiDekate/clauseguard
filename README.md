@@ -4,6 +4,14 @@
 
 ClauseGuard is an AI decision-intelligence system that reads legal-style documents, identifies clauses worth attention, explains them in plain English, and links every conclusion to the specific text it came from.
 
+## Live Demo
+
+🌐 **Try ClauseGuard:** https://clauseguard-ai.streamlit.app/
+
+Upload a lease, insurance policy, or Terms of Service document to generate an evidence-backed analysis with clause-level citations.
+
+> Demo: https://clauseguard-ai.streamlit.app/
+
 ## Why this project
 
 This is built as an AI engineering case study, not just a document-processing application. The system is structured around a set of engineering questions — chunking strategy, retrieval quality, model selection, whether a reviewer agent actually reduces unsupported claims — each tested and documented rather than assumed. See `docs/ROADMAP.md` for the full list of questions under investigation and `docs/ENGINEERING_JOURNAL.md` for the reasoning behind completed decisions.
